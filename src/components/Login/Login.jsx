@@ -1,5 +1,5 @@
 import React from 'react'
-import ParticlesBg from 'particles-bg';
+//import ParticlesBg from 'particles-bg';
 // import Particles from "react-tsparticles";
 // import { loadFull } from "tsparticles";
 import { useState } from 'react';
@@ -71,7 +71,6 @@ function validateRegister(){
   /////////////
 
   return <>
-    <ParticlesBg type="cobweb" bg={true} />
     <div className="main-form  mx-auto">
       <form onSubmit={submitloginForm}>
         {errorlist.map((error,i)=><div className="alert alert-danger" role="alert">{error.message}</div>)}
@@ -95,7 +94,7 @@ function validateRegister(){
         </label>
         </div>
 
-        <button  className="btn btn-info w-100 " type="submit" style={{backgroundColor:'gray', border:'none'}} ><span>Login</span></button>
+        <button  className="btn btn-info w-100 " type="submit" style={{ border:'none'}} ><span>Login</span></button>
       </form>
     </div>
  

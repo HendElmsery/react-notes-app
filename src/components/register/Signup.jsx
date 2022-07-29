@@ -1,5 +1,5 @@
 import React from 'react'
-import ParticlesBg from 'particles-bg';
+//import ParticlesBg from 'particles-bg';
 // import Particles from "react-tsparticles";
 // import { loadFull } from "tsparticles";
 import { useState } from 'react';
@@ -76,7 +76,6 @@ function validateRegister(){
   /////////////
 
   return <>
-   <ParticlesBg type="cobweb" bg={true} />
     <div className="main-form  mx-auto">
       <form onSubmit={submitRigesterForm}>
         {errorlist.map((error,i)=><div className="alert alert-danger" role="alert">{error.message}</div>)}
@@ -84,7 +83,7 @@ function validateRegister(){
  {error ? <div className="alert alert-danger" role="alert">{error}</div>:''}
 
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-6 col-12">
             
             <div className="form-group">
             <label htmlFor="first_name" className="form-label w-100">
@@ -92,7 +91,7 @@ function validateRegister(){
         </label>
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 col-12">
             <div className="form-group">
             <label htmlFor="last_name" className="form-label w-100">
           <input type="text" onChange={getUserData} className='form-control' id='last_name' name='last_name' placeholder='Enter last name' />
@@ -122,7 +121,7 @@ function validateRegister(){
         </label>
         </div>
 
-        <button  className="btn btn-info w-100 " type="submit" style={{backgroundColor:'gray', border:'none'}} ><span>Sign Up</span></button>
+        <button  className="btn btn-info w-100 " type="submit" style={{ border:'none'}} ><span>Sign Up</span></button>
       </form>
     </div>
  
