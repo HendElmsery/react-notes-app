@@ -36,7 +36,7 @@ async function submitloginForm(e){
   let response = await Axios.post('https://route-egypt-api.herokuapp.com/signin',user)
 
 if (response.data.message === 'success') {
-  localStorage.setItem('userToken',response.data.token)
+  localStorage.setItem('token',response.data.token)
   //call saveuser data function fro App
   props.saveUserdata()
   navigate('/home')

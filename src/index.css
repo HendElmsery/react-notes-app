@@ -28,7 +28,15 @@ a, a:hover{
   left: 50%;
   transform: translate(-50%,-50%);
 }
-
+@media screen and (max-width: 480px) {
+  .main-form{
+    position: absolute;
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+}
 .particles-bg-canvas-self{
   background:#212529;
   color: #ccc;

@@ -9,60 +9,49 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-export default function Home(props) {
-  var token = localStorage.getItem('userToken')
+export default function Home() {
+  var token = localStorage.getItem('token')
+
   if (token) {
     var decodedToken = jwtDecode(token);
 
   }
 
   const [userNotes, setuserNotes] = useState([])
-  const [note, setnote] = useState({ title: '', desc: '', token, userID: decodedToken._id })
+  const [note, setnote] = useState({ 'title': '', 'desc': '', token, userID: decodedToken._id })
 
 
 
-  useEffect(() => {
-
-
-    return () => {
-      getUserNotes()
-
-    }
-  }, [])
   ////get notes from api////////
   async function getUserNotes() {
     let { data } = await Axios.get(`https://route-egypt-api.herokuapp.com/getUserNotes`, {
 
       headers: {
-        token,
+        Token:token,
         userID: decodedToken._id
       }
 
     })
     setuserNotes(data.Notes)
     // console.log(data)
-
+   
   }
   //add note /////////
   async function addUserNote(e) {
     e.preventDefault()
     let { data } = await Axios.post('https://route-egypt-api.herokuapp.com/addNote', note)
-    setnote(data)
+    console.log(data);
+    
     //
     if (data.message === 'success') {
       document.getElementById('add-form').reset()
       getUserNotes()
+      console.log(data);
     }
 
-    else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: "you cant add empty note"
-      })
-
-    }
+ else{
+  console.log(data);
+ }
   }
   function getNote({ target }) {
     setnote({ ...note, [target.name]: target.value })
@@ -81,6 +70,7 @@ export default function Home(props) {
     let { data } = await axios.put('https://route-egypt-api.herokuapp.com/updateNote', note)
     console.log(data);
     if (data.message === "updated") {
+      document.getElementById('add-form').reset()
       getUserNotes()
       Swal.fire(
         'Updated!',
@@ -145,6 +135,14 @@ export default function Home(props) {
 
   }
 
+  useEffect(() => {
+
+
+    
+    getUserNotes()
+
+  
+},[])
 
   return (
     <div>
@@ -153,7 +151,7 @@ export default function Home(props) {
 
 
 
-      <div className="modal fade scroll-x" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+      <div className="modal fade scroll-x" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -185,7 +183,7 @@ export default function Home(props) {
 
       {/* start edit note modal */}
 
-      <div className="modal fade" id="exampleModal1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+      <div className="modal fade" id="exampleModal1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -219,7 +217,7 @@ export default function Home(props) {
 
             <button className="btn btn-info float-end mt-3" 
             data-target="#AddNote" data-toggle="modal" data-bs-toggle="modal" 
-            data-bs-target="#exampleModal" data-backdrop="static" data-keyboard="false">Add Note</button>
+            data-bs-target="#exampleModal" >Add Note</button>
           </div>
         </div>
       </div>
@@ -239,14 +237,14 @@ export default function Home(props) {
                     <ul className="dropdown-menu pointer">
 
                       <li onClick={() => getNoteId(index)} className="dropdown-item"
-                       data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                       data-bs-toggle="modal" data-bs-target="#exampleModal1" data-target="#exampleModal1">
                         Edit
-                        <i class="fa-solid fa-pen-to-square float-end blue"></i>
+                        <i className="fa-solid fa-pen-to-square float-end blue"></i>
                         </li>
                       <li onClick={() => deleteNote(note._id)} className="dropdown-item" >
                      
                         Delete
-                        <i class="fa-solid fa-trash-can float-end red"></i>
+                        <i className="fa-solid fa-trash-can float-end red"></i>
                         </li>
                        
                     </ul>

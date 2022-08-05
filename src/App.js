@@ -12,14 +12,14 @@ function App() {
   let navigate = useNavigate()
   const [userdata, setuserdata] = useState(null);
   function saveUserdata(){
-    let encoded = localStorage.getItem('userToken');
+    let encoded = localStorage.getItem('token');
     let decodedToken = jwtDecode(encoded);
     setuserdata(decodedToken)
     console.log(decodedToken);
   }
   useEffect(() => {
     return()=>{
-  if(localStorage.getItem('userToken')){
+  if(localStorage.getItem('token')){
     saveUserdata()
   }
 }
@@ -27,7 +27,7 @@ function App() {
   }, [])
   
   function PrtectodRoute(props){
-    if(localStorage.getItem('userToken')=== null){
+    if(localStorage.getItem('token')=== null){
       return <Navigate to='/login'/>
     }
     else{
@@ -36,7 +36,7 @@ function App() {
   }
   function logOut(){
     setuserdata(null);
-    localStorage.removeItem('userToken')
+    localStorage.removeItem('token')
     navigate('/login')
   }
   return  <>
@@ -46,7 +46,11 @@ function App() {
 <Route path='home' element={<PrtectodRoute><Home /></PrtectodRoute>}/>
 <Route path='Signup' element={<Signup/>}/>
 <Route path='login' element={<Login saveUserdata={saveUserdata}/>}/>
-{/* <Route path='*' element={<PrtectodRoute><div className='text-center mt-5 text-white'>ERROR 404!</div></PrtectodRoute>}/> */}
+ <Route path='*' element={
+<>
+<div className='text-center mt-5 text-white'>ERROR 404!</div>
+</>
+}/>
  </Routes>
  </>
 }
